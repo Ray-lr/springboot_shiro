@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserService userSerivce;
+    private UserService userService;
 
     /**
      * 执行认证逻辑
@@ -36,7 +36,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         // 1.判断用户名
-        User user = userSerivce.findByName(token.getUsername());
+        User user = userService.findByName(token.getUsername());
         if (user == null) {
             return null;
         }
@@ -57,7 +57,7 @@ public class UserRealm extends AuthorizingRealm {
         //获取当前登录用户
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipal();
-        User dbUser = userSerivce.findById(user.getId());
+        User dbUser = userService.findById(user.getId());
 
         info.addStringPermission(dbUser.getPerms());
         //info.addStringPermission("user:add");

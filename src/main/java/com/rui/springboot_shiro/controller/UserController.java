@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class UserController {
 
-    @RequestMapping("/thymeleaf")
+    @RequestMapping("/home")
     public String testThymeleaf(Model model) {
         model.addAttribute("name","Ray");
-        return "test";
+        return "home";
     }
 
     @RequestMapping("/add")
@@ -64,7 +64,7 @@ public class UserController {
 
             //登录成功
             //跳转到test.html
-            return "redirect:/thymeleaf";
+            return "redirect:/home";
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             //登录失败:用户名不存在，UnknownAccountException是Shiro抛出的找不到用户异常
